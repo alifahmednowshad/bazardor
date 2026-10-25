@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Hind_Siliguri, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Shared/Header/Header";
+import Footer from "@/components/Shared/Footer";
 
 const hindSiliguri = Hind_Siliguri({
   variable: "--font-hind-siliguri",
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col bg-green-50 font-sans">
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
