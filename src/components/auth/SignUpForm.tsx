@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
-import { FaGithub } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
+import SocialButtons from "./SocialButtons";
 
 const inputClass =
   "w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 placeholder:text-gray-400 focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-600/30";
@@ -50,14 +49,6 @@ export default function SignUpForm() {
 
     toast.success("অ্যাকাউন্ট তৈরি হয়েছে, এখন সাইন ইন করুন");
     router.push("/signin");
-  };
-
-  const social = async (provider: "google" | "github") => {
-    const { error } = await authClient.signIn.social({
-      provider,
-      callbackURL: "/",
-    });
-    if (error) toast.error(error.message || "লগইন করা যায়নি");
   };
 
   return (
@@ -159,25 +150,7 @@ export default function SignUpForm() {
           <span className="h-px flex-1 bg-gray-200" />
         </div>
 
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <button
-            type="button"
-            onClick={() => social("google")}
-            className="flex items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm font-medium text-gray-800 hover:bg-gray-50"
-          >
-            <FcGoogle size={20} />
-            Google দিয়ে চালিয়ে যান
-          </button>
-
-          <button
-            type="button"
-            onClick={() => social("github")}
-            className="flex items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm font-medium text-gray-800 hover:bg-gray-50"
-          >
-            <FaGithub size={20} />
-            GitHub দিয়ে চালিয়ে যান
-          </button>
-        </div>
+        <SocialButtons />
 
         <p className="mt-5 text-center text-gray-700">
           অ্যাকাউন্ট আছে?{" "}
