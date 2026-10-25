@@ -7,6 +7,14 @@ export const fmtPrice = (n: number) => toBn(n.toLocaleString("en-US"));
 
 export const fmtPct = (n: number) => toBn(Math.abs(n).toFixed(1));
 
+export const fmtAvg = (n: number) =>
+  toBn(
+    n.toLocaleString("en-US", {
+      minimumFractionDigits: Number.isInteger(n) ? 0 : 2,
+      maximumFractionDigits: 2,
+    }),
+  );
+
 export const banglaDate = () =>
   new Intl.DateTimeFormat("bn-BD", {
     weekday: "long",

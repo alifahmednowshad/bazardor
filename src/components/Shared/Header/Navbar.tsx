@@ -1,6 +1,7 @@
 "use client";
 
 import { useCurrentUser } from "@/lib/use-current-user";
+import type { Category } from "@/lib/types";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -8,18 +9,7 @@ import Container from "../ui/Container";
 import BanglaDate from "@/components/BanglaDate";
 import { FaShoppingCart } from "react-icons/fa";
 
-const categories = [
-  { slug: "chal", name: "চাল", emoji: "🍚" },
-  { slug: "dal", name: "ডাল", emoji: "🫘" },
-  { slug: "tel", name: "তেল", emoji: "🫙" },
-  { slug: "sobji", name: "সবজি", emoji: "🥬" },
-  { slug: "mach", name: "মাছ", emoji: "🐟" },
-  { slug: "mangsho", name: "মাংস", emoji: "🍗" },
-  { slug: "dim-dudh", name: "ডিম-দুধ", emoji: "🥛" },
-  { slug: "moshla", name: "মসলা", emoji: "🌶️" },
-];
-
-export default function Navbar() {
+export default function Navbar({ categories }: { categories: Category[] }) {
   const pathname = usePathname();
   const { user, signOut } = useCurrentUser();
   const [open, setOpen] = useState(false);
@@ -29,7 +19,6 @@ export default function Navbar() {
     <header className="border-b border-gray-200 bg-white">
       <Container>
         <div className="flex items-center justify-between gap-3 py-3">
-          {/* লোগো: ছোট স্ক্রিনে সংকুচিত হতে পারবে */}
           <Link href="/" className="flex min-w-0 items-center gap-2 sm:gap-3">
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-600 text-lg text-white sm:h-11 sm:w-11 sm:text-xl">
               <FaShoppingCart />
@@ -113,7 +102,6 @@ export default function Navbar() {
         </div>
       </Container>
 
-      {/* ক্যাটাগরি: মোবাইলে স্ক্রল, স্ক্রলবার লুকানো */}
       <nav
         aria-label="ক্যাটাগরি"
         className="overflow-x-auto border-t border-gray-200 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
@@ -134,8 +122,8 @@ export default function Navbar() {
                         : "text-gray-700 hover:bg-gray-100"
                     }`}
                   >
-                    <span aria-hidden>{c.emoji}</span>
-                    {c.name}
+                    <span aria-hidden>{c.icon}</span>
+                    {c.nameBn}
                   </Link>
                 </li>
               );
