@@ -3,6 +3,7 @@ import { Hind_Siliguri, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Shared/Header/Header";
 import Footer from "@/components/Shared/Footer";
+import ToasterProvider from "@/components/Shared/ToasterProvider";
 
 const hindSiliguri = Hind_Siliguri({
   variable: "--font-hind-siliguri",
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         {children}
         <Footer />
+        <ToasterProvider />
       </body>
     </html>
   );

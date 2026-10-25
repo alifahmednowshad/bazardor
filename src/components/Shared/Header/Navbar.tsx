@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Container from "../ui/Container";
 import BanglaDate from "@/components/BanglaDate";
+import { FaShoppingCart } from "react-icons/fa";
 
 
 const categories = [
@@ -33,7 +34,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between py-3">
           <Link href="/" className="flex items-center gap-3">
             <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-green-600 text-xl text-white">
-              🛒
+              <FaShoppingCart />
             </span>
             <span className="leading-tight">
               <span className="block text-lg font-bold text-gray-900">
