@@ -1,19 +1,20 @@
 "use client";
 
-import { useCurrentUser } from "@/lib/use-current-user";
-import type { Category } from "@/lib/types";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import Container from "../ui/Container";
+import { FaRegUser, FaShoppingCart } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
 import BanglaDate from "@/components/BanglaDate";
-import { FaShoppingCart } from "react-icons/fa";
+import UserAvatar from "@/components/Shared/ui/UserAvatar";
+import type { Category } from "@/lib/types";
+import { useCurrentUser } from "@/lib/use-current-user";
+import Container from "../ui/Container";
 
 export default function Navbar({ categories }: { categories: Category[] }) {
   const pathname = usePathname();
-  const { user, signOut } = useCurrentUser();
+  const { user, isPending, signOut } = useCurrentUser();
   const [open, setOpen] = useState(false);
-  const currentUser = user as { image?: string | null; name: string } | null;
 
   return (
     <header className="border-b border-gray-200 bg-white">
@@ -31,26 +32,17 @@ export default function Navbar({ categories }: { categories: Category[] }) {
             </span>
           </Link>
 
-          {currentUser ? (
+          {isPending ? (
+            <div className="h-10 w-28 shrink-0 animate-pulse rounded-lg bg-gray-200" />
+          ) : user ? (
             <div className="relative shrink-0">
               <button
                 onClick={() => setOpen((o) => !o)}
-                className="flex items-center gap-2 rounded-full py-1 pl-1 pr-3 hover:bg-gray-100"
+                className="flex items-center gap-2 rounded-lg py-1 pl-1 pr-3 hover:bg-gray-100"
               >
-                {currentUser.image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={currentUser.image}
-                    alt={currentUser.name}
-                    className="h-9 w-9 rounded-full object-cover"
-                  />
-                ) : (
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-green-600 text-sm font-semibold text-white">
-                    {currentUser.name.charAt(0).toUpperCase()}
-                  </span>
-                )}
+                <UserAvatar name={user.name} image={user.image} size={36} />
                 <span className="hidden max-w-32 truncate text-base font-medium text-gray-800 sm:block">
-                  {currentUser.name}
+                  {user.name.split(" ")[0]}
                 </span>
                 <span className="text-[10px] text-gray-400">▾</span>
               </button>
@@ -62,23 +54,32 @@ export default function Navbar({ categories }: { categories: Category[] }) {
                     className="fixed inset-0 z-10 cursor-default"
                     onClick={() => setOpen(false)}
                   />
-                  <div className="absolute right-0 z-20 mt-2 w-48 rounded-lg border border-gray-200 bg-white p-1 shadow-lg">
-                    <Link
-                      href="/my-profile"
-                      onClick={() => setOpen(false)}
-                      className="block rounded-md px-3 py-2 text-base hover:bg-gray-100"
-                    >
-                      আমার প্রোফাইল
-                    </Link>
-                    <button
-                      onClick={() => {
-                        setOpen(false);
-                        signOut();
-                      }}
-                      className="block w-full rounded-md px-3 py-2 text-left text-base text-red-600 hover:bg-red-50"
-                    >
-                      সাইন আউট
-                    </button>
+                  <div className="absolute right-0 z-20 mt-2 w-64 rounded-2xl border border-gray-200 bg-white p-4 shadow-lg">
+                    <p className="truncate text-lg font-semibold text-gray-900">
+                      {user.name}
+                    </p>
+                    <p className="truncate text-sm text-gray-500">
+                      {user.email}
+                    </p>
+
+                    <div className="mt-4 space-y-1">
+                      <Link
+                        href="/my-profile"
+                        onClick={() => setOpen(false)}
+                        className="flex items-center gap-2 rounded-md px-1 py-2 text-base text-gray-800 hover:bg-gray-100"
+                      >
+                        <FaRegUser /> আমার প্রোফাইল
+                      </Link>
+                      <button
+                        onClick={() => {
+                          setOpen(false);
+                          signOut();
+                        }}
+                        className="flex w-full items-center gap-2 rounded-md px-1 py-2 text-left text-base text-red-600 hover:bg-red-50"
+                      >
+                        <FiLogOut /> সাইন আউট
+                      </button>
+                    </div>
                   </div>
                 </>
               )}
@@ -118,7 +119,7 @@ export default function Navbar({ categories }: { categories: Category[] }) {
                     aria-current={active ? "page" : undefined}
                     className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-sm transition-colors sm:px-4 sm:text-base ${
                       active
-                        ? "bg-green-100 font-semibold text-green-700"
+                        ? "bg-green-700 font-semibold text-white"
                         : "text-gray-700 hover:bg-gray-100"
                     }`}
                   >

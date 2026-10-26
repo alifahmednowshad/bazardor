@@ -1,9 +1,11 @@
+import { headers } from "next/headers";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import ChangeBadge from "@/components/products/ChangeBadge";
 import Container from "@/components/Shared/ui/Container";
 import { getProductBySlug } from "@/lib/api";
+import { auth } from "@/lib/auth";
 import { fmtAvg, fmtPrice } from "@/lib/bn";
-import ChangeBadge from "@/components/products/ChangeBadge";
 
 export default async function ProductPage({
   params,
@@ -11,6 +13,15 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+
+  // লগইন না থাকলে সাইন ইন পেজে পাঠানো হবে, লগইনের পর আবার এই পেজেই ফিরবে
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session) {
+    redirect(
+      `/signin?reason=login&next=${encodeURIComponent(`/product/${slug}`)}`,
+    );
+  }
+
   const p = await getProductBySlug(slug);
   if (!p) notFound();
 

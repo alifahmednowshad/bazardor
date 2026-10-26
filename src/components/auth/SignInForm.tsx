@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
+import { authErrorBn, safeNext } from "@/lib/auth-utils";
 import SocialButtons from "./SocialButtons";
 
 const inputClass =
@@ -12,8 +13,17 @@ const inputClass =
 
 export default function SignInForm() {
   const router = useRouter();
+  const params = useSearchParams();
+  const next = safeNext(params.get("next"));
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+
+  // সুরক্ষিত পেজ থেকে ফেরত পাঠানো হলে টোস্ট
+  useEffect(() => {
+    if (params.get("reason") === "login") {
+      toast.error("এই পেজ দেখতে আগে সাইন ইন করুন", { id: "login-required" });
+    }
+  }, [params]);
 
   const set =
     (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -34,10 +44,11 @@ export default function SignInForm() {
     });
     setLoading(false);
 
-    if (error) return toast.error(error.message || "ইমেইল বা পাসওয়ার্ড ভুল");
+    if (error)
+      return toast.error(authErrorBn(error, "ইমেইল বা পাসওয়ার্ড ভুল"));
 
     toast.success("সফলভাবে সাইন ইন হয়েছে");
-    router.push("/");
+    router.push(next);
     router.refresh();
   };
 
@@ -105,7 +116,7 @@ export default function SignInForm() {
           <span className="h-px flex-1 bg-gray-200" />
         </div>
 
-        <SocialButtons />
+        <SocialButtons callbackURL={next} />
 
         <p className="mt-5 text-center text-gray-700">
           অ্যাকাউন্ট নেই?{" "}
