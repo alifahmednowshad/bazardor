@@ -27,6 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="bn"
+      data-scroll-behavior="smooth"
       className={`${hindSiliguri.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-green-50 font-sans">
