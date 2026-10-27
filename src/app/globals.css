@@ -1,5 +1,28 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: false;
+}
+
+@plugin "daisyui/theme" {
+  name: "bazardor";
+  default: true;
+  color-scheme: light;
+
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(98% 0.003 150);
+  --color-base-300: oklch(92% 0.004 150);
+  --color-base-content: oklch(21% 0.034 264.665);
+
+  --color-primary: oklch(52.7% 0.154 150.069); /* green-700 */
+  --color-primary-content: oklch(100% 0 0);
+
+  --color-error: oklch(57.7% 0.245 27.325); /* red-600 */
+  --color-success: oklch(62.7% 0.194 149.214);
+
+  --radius-box: 1rem;
+  --radius-field: 0.375rem;
+  --radius-selector: 0.375rem;
+}
 @theme inline {
   --font-sans: var(--font-hind-siliguri), var(--font-inter), system-ui, sans-serif;
 }

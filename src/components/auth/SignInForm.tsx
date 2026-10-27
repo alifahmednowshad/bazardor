@@ -8,8 +8,7 @@ import { authClient } from "@/lib/auth-client";
 import { authErrorBn, safeNext } from "@/lib/auth-utils";
 import SocialButtons from "./SocialButtons";
 
-const inputClass =
-  "w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 placeholder:text-gray-400 focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-600/30";
+const inputClass = "input w-full";
 
 export default function SignInForm() {
   const router = useRouter();
@@ -18,7 +17,6 @@ export default function SignInForm() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
 
-  // সুরক্ষিত পেজ থেকে ফেরত পাঠানো হলে টোস্ট
   useEffect(() => {
     if (params.get("reason") === "login") {
       toast.error("এই পেজ দেখতে আগে সাইন ইন করুন", { id: "login-required" });
@@ -104,9 +102,16 @@ export default function SignInForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-md bg-green-700 py-2.5 text-base font-semibold text-white shadow-md transition-colors hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-70"
+            className="btn btn-primary w-full"
           >
-            {loading ? "অপেক্ষা করুন..." : "সাইন ইন"}
+            {loading ? (
+              <>
+                <span className="loading loading-spinner loading-sm" />
+                অপেক্ষা করুন...
+              </>
+            ) : (
+              "সাইন ইন"
+            )}
           </button>
         </form>
 

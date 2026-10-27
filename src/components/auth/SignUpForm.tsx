@@ -8,8 +8,7 @@ import { authClient } from "@/lib/auth-client";
 import SocialButtons from "./SocialButtons";
 import { authErrorBn } from "@/lib/auth-utils";
 
-const inputClass =
-  "w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 placeholder:text-gray-400 focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-600/30";
+const inputClass = "input w-full";
 
 export default function SignUpForm() {
   const router = useRouter();
@@ -139,9 +138,16 @@ export default function SignUpForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-md bg-green-700 py-2.5 text-base font-semibold text-white shadow-md transition-colors hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-70"
+            className="btn btn-primary w-full"
           >
-            {loading ? "অপেক্ষা করুন..." : "অ্যাকাউন্ট তৈরি করুন"}
+            {loading ? (
+              <>
+                <span className="loading loading-spinner loading-sm" />
+                অপেক্ষা করুন...
+              </>
+            ) : (
+              "অ্যাকাউন্ট তৈরি করুন"
+            )}
           </button>
         </form>
 
