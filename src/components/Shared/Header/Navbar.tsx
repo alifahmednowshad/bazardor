@@ -10,6 +10,9 @@ import UserAvatar from "@/components/Shared/ui/UserAvatar";
 import type { Category } from "@/lib/types";
 import { useCurrentUser } from "@/lib/use-current-user";
 import Container from "../ui/Container";
+// import Image from "next/image";
+// import logo from "@/assets/logo-icon.png";
+// import { PiBasketFill } from "react-icons/pi";
 
 export default function Navbar({ categories }: { categories: Category[] }) {
   const pathname = usePathname();
@@ -21,9 +24,27 @@ export default function Navbar({ categories }: { categories: Category[] }) {
       <Container>
         <div className="flex items-center justify-between gap-3 py-3">
           <Link href="/" className="flex min-w-0 items-center gap-2 sm:gap-3">
+            {/* <Image
+              src={logo}
+              alt="বাজার দর লোগো"
+              priority
+              className="h-10 w-10 shrink-0 rounded-lg bg-green-600 object-contain p-1.5 sm:h-11 sm:w-11"
+            /> */}
+
+            {/* or */}
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-600 text-lg text-white sm:h-11 sm:w-11 sm:text-xl">
               <FaShoppingCart />
             </span>
+            {/* big size logo */}
+            {/* <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-green-600 text-2xl text-white sm:h-12 sm:w-12 sm:text-3xl">
+              <FaShoppingCart />
+            </span> */}
+
+            {/* or */}
+            {/* <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-600 text-white sm:h-11 sm:w-11">
+              <PiBasketFill size={24} />
+            </span> */}
+
             <span className="min-w-0 leading-tight">
               <span className="block truncate text-xl font-bold text-gray-900 sm:text-2xl">
                 বাজার দর

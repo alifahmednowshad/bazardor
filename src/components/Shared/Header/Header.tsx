@@ -5,7 +5,6 @@ import Container from "../ui/Container";
 import Navbar from "./Navbar";
 import PriceTicker from "./PriceTicker";
 
-// Navbar লোড হওয়ার আগে একই উচ্চতার ফাঁকা কাঠামো, যাতে পেজ লাফিয়ে না ওঠে
 function NavbarFallback() {
   return (
     <header className="border-b border-gray-200 bg-white" aria-busy="true">
@@ -28,7 +27,7 @@ export default async function Header() {
       getProducts(),
     ]);
   } catch {
-    // API না এলে খালি তালিকা নিয়েই পেজ চলবে
+   
   }
 
   return (
