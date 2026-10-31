@@ -6,7 +6,7 @@ import { FaGithub } from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
 
 const btn =
-  "flex items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm font-medium text-gray-800 hover:bg-gray-50";
+  "flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md border border-gray-300! bg-white px-3 text-sm font-semibold text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-50 active:scale-[0.98]";
 
 export default function SocialButtons({
   callbackURL = "/",
@@ -19,13 +19,13 @@ export default function SocialButtons({
   };
 
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+    <div className="grid grid-cols-1 gap-3 min-[480px]:grid-cols-2">
       <button type="button" onClick={() => social("google")} className={btn}>
-        <FcGoogle size={20} />
+        <FcGoogle size={22} className="shrink-0" />
         Google দিয়ে চালিয়ে যান
       </button>
       <button type="button" onClick={() => social("github")} className={btn}>
-        <FaGithub size={20} />
+        <FaGithub size={22} className="shrink-0" />
         GitHub দিয়ে চালিয়ে যান
       </button>
     </div>

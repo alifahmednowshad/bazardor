@@ -10,9 +10,9 @@ export default function Hero() {
         <div className="flex flex-col-reverse items-center gap-8 rounded-3xl border border-gray-200 bg-white/70 p-6 sm:p-8 md:flex-row md:justify-between lg:px-10 lg:py-10">
           {/* বাম দিক: লেখা */}
           <div className="w-full text-center md:max-w-xl md:text-left">
-            <BanglaDate className="inline-block min-w-44 rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700" />
+            <BanglaDate className="inline-block min-w-44 rounded-full bg-green-100 px-3 py-1 text-lg font-semibold text-green-700" />
 
-            <h1 className="mt-3 text-3xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl">
+            <h1 className="mt-3 text-3xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-4xl">
               আজকের বাজারের দাম এক নজরে
             </h1>
 

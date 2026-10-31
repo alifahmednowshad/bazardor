@@ -5,10 +5,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
-import SocialButtons from "./SocialButtons";
 import { authErrorBn } from "@/lib/auth-utils";
-
-const inputClass = "input w-full";
+import SocialButtons from "./SocialButtons";
+import { inputClass, labelClass, submitClass } from "./styles";
 
 export default function SignUpForm() {
   const router = useRouter();
@@ -52,12 +51,12 @@ export default function SignUpForm() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-md">
+    <div className="mx-auto w-full max-w-104">
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+        <h1 className="text-[28px] font-bold text-gray-900">
           অ্যাকাউন্ট তৈরি করুন
         </h1>
-        <p className="mt-2 text-gray-600">
+        <p className="mt-2 text-sm text-gray-600">
           বিনা খরচে সাইন আপ করে সব বিস্তারিত দাম দেখুন।
         </p>
       </div>
@@ -65,10 +64,7 @@ export default function SignUpForm() {
       <div className="mt-8 rounded-2xl border border-gray-200 bg-white/70 p-5 sm:p-6">
         <form onSubmit={handleSubmit} noValidate className="space-y-4">
           <div>
-            <label
-              htmlFor="name"
-              className="mb-1 block font-medium text-gray-800"
-            >
+            <label htmlFor="name" className={labelClass}>
               নাম
             </label>
             <input
@@ -82,10 +78,7 @@ export default function SignUpForm() {
           </div>
 
           <div>
-            <label
-              htmlFor="email"
-              className="mb-1 block font-medium text-gray-800"
-            >
+            <label htmlFor="email" className={labelClass}>
               ইমেইল
             </label>
             <input
@@ -100,10 +93,7 @@ export default function SignUpForm() {
           </div>
 
           <div>
-            <label
-              htmlFor="password"
-              className="mb-1 block font-medium text-gray-800"
-            >
+            <label htmlFor="password" className={labelClass}>
               পাসওয়ার্ড
             </label>
             <input
@@ -118,10 +108,7 @@ export default function SignUpForm() {
           </div>
 
           <div>
-            <label
-              htmlFor="confirm"
-              className="mb-1 block font-medium text-gray-800"
-            >
+            <label htmlFor="confirm" className={labelClass}>
               পাসওয়ার্ড নিশ্চিত করুন
             </label>
             <input
@@ -135,11 +122,7 @@ export default function SignUpForm() {
             />
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="btn btn-primary w-full"
-          >
+          <button type="submit" disabled={loading} className={submitClass}>
             {loading ? (
               <>
                 <span className="loading loading-spinner loading-sm" />
@@ -151,7 +134,7 @@ export default function SignUpForm() {
           </button>
         </form>
 
-        <div className="my-5 flex items-center gap-3 text-sm text-gray-500">
+        <div className="my-5 flex items-center gap-3 text-xs text-gray-500">
           <span className="h-px flex-1 bg-gray-200" />
           অথবা
           <span className="h-px flex-1 bg-gray-200" />
@@ -159,7 +142,7 @@ export default function SignUpForm() {
 
         <SocialButtons />
 
-        <p className="mt-5 text-center text-gray-700">
+        <p className="mt-5 text-center text-sm text-gray-700">
           অ্যাকাউন্ট আছে?{" "}
           <Link
             href="/signin"
