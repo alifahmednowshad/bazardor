@@ -14,8 +14,25 @@ export default function SocialButtons({
   callbackURL?: string;
 }) {
   const social = async (provider: "google" | "github") => {
-    const { error } = await authClient.signIn.social({ provider, callbackURL });
-    if (error) toast.error("সোশ্যাল লগইন করা যায়নি");
+    try {
+      const next =
+        callbackURL.startsWith("/") && !callbackURL.startsWith("//")
+          ? callbackURL
+          : "/";
+
+      const successURL = `/auth/success?next=${encodeURIComponent(next)}`;
+
+      const { error } = await authClient.signIn.social({
+        provider,
+        callbackURL: successURL,
+      });
+
+      if (error) {
+        toast.error("সোশ্যাল লগইন করা যায়নি");
+      }
+    } catch {
+      toast.error("লগইন করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    }
   };
 
   return (
@@ -24,6 +41,7 @@ export default function SocialButtons({
         <FcGoogle size={22} className="shrink-0" />
         Google দিয়ে চালিয়ে যান
       </button>
+
       <button type="button" onClick={() => social("github")} className={btn}>
         <FaGithub size={22} className="shrink-0" />
         GitHub দিয়ে চালিয়ে যান
