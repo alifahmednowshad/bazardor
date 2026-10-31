@@ -14,7 +14,6 @@ export default async function ProductPage({
 }) {
   const { slug } = await params;
 
-  // লগইন না থাকলে সাইন ইন পেজে পাঠানো হবে, লগইনের পর আবার এই পেজেই ফিরবে
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) {
     redirect(
@@ -25,7 +24,6 @@ export default async function ProductPage({
   const p = await getProductBySlug(slug);
   if (!p) notFound();
 
-  // বাজারের গড় = (সর্বনিম্ন + সর্বাধিক) / ২, গড় অনুযায়ী কম থেকে বেশি সাজানো
   const markets = p.markets
     .map((m) => ({ ...m, avg: (m.min + m.max) / 2 }))
     .sort((a, b) => a.avg - b.avg);
@@ -65,7 +63,6 @@ export default async function ProductPage({
   return (
     <main className="py-6">
       <Container>
-        {/* ব্রেডক্রাম্ব */}
         <nav
           aria-label="breadcrumb"
           className="mb-5 flex flex-wrap items-center gap-2 text-gray-600"
@@ -84,7 +81,6 @@ export default async function ProductPage({
           <span className="text-gray-900">{p.name}</span>
         </nav>
 
-        {/* সারাংশ */}
         <section className="flex flex-col gap-5 rounded-2xl border border-gray-200 bg-white/70 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
           <div className="flex items-center gap-4">
             <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gray-100 text-4xl sm:h-20 sm:w-20 sm:text-5xl">
@@ -122,7 +118,6 @@ export default async function ProductPage({
           </div>
         </section>
 
-        {/* দামের সারসংক্ষেপ + টেবিল */}
         <section className="mt-6 rounded-2xl border border-gray-200 bg-white/70 p-5 sm:p-6">
           <h2 className="text-xl font-bold text-gray-900">দামের সারসংক্ষেপ</h2>
 
