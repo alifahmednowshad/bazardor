@@ -1,30 +1,23 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { safeNext } from "@/lib/auth-utils";
 
 export default function SocialAuthSuccessPage() {
-//   const hasRun = useRef(false);
+  const router = useRouter();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const next = safeNext(params.get("next"));
 
-    console.log("Social login success page loaded");
-    console.log("Next URL:", next);
+    toast.success("সফলভাবে সাইন ইন হয়েছে!", { id: "social-auth-success" });
 
-    toast.success("সফলভাবে সাইন ইন হয়েছে!", {
-      id: "social-auth-success",
-    });
-
-    const timer = window.setTimeout(() => {
-      console.log("Redirecting to:", next);
-      window.location.href = next;
-    }, 1500);
-
-    return () => window.clearTimeout(timer);
-  }, []);
+    // সাথে সাথে পরের পেজে যাবে; টোস্ট নতুন পেজেও থাকবে
+    router.replace(next);
+    router.refresh();
+  }, [router]);
 
   return (
     <main className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-4">
